@@ -1,0 +1,1228 @@
+/* src/styles/layout.css */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  margin: 0;          /* no centering strip */
+  padding: 0 2.5rem;  /* optional horizontal padding */
+}
+
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111827;
+  color: #f9fafb;
+  padding: 0.75rem 1.5rem;
+}
+
+.navbar-links a {
+  margin-left: 1rem;
+  font-size: 0.95rem;
+}
+
+.navbar-links a.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  background: #111827;
+  color: #9ca3af;
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Loader */
+.loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #2563eb;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Posts list */
+.post-list {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.post-card {
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.post-card h3 {
+  margin-bottom: 0.35rem;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f6ecdd;              /* light beige */
+  padding: 0.9rem 2.5rem;
+  border-radius: 0;                  /* full-width bar; add radius if wrapped in card */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+/* logo left */
+.navbar-left {
+  flex: 0 0 auto;
+}
+
+.logo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: #ffffff;
+  padding: 0.5rem 1.4rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
+}
+
+.logo-icon {
+  font-size: 1.1rem;
+}
+
+.logo-text {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* center nav links */
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  font-size: 0.95rem;
+}
+
+.navbar-center a {
+  color: #111827;
+}
+
+.navbar-center a.active {
+  font-weight: 600;
+}
+
+/* right side: buttons or user */
+.navbar-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* buttons */
+.btn {
+  padding: 0.45rem 1.3rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.1s ease;
+}
+
+.btn-primary {
+  background: #5a4332; /* brown from your design (approx) */
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: #f6ecdd;
+  color: #5a4332;
+  border: 1px solid #5a4332;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
+}
+
+/* user area */
+.navbar-user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #f9fafb;
+  border: 2px solid #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #5a4332;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.user-bio {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* avatar dropdown */
+.user-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  min-width: 160px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  padding: 0.4rem 0;
+  z-index: 20;
+}
+
+.user-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.user-menu-item:hover {
+  background: #f3f4f6;
+}
+
+.user-menu-item-danger {
+  color: #b91c1c;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  background: #f6ecdd;
+  padding: 0.9rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.footer-left a {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid #1f2933;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-link {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #111827;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== SMART FILTER ===== */
+
+.smart-filter {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  background: transparent;     /* let the page beige show through */
+  border-radius: 0;
+}
+
+
+.smart-filter-title {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #111827;
+}
+
+.smart-filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;     /* center the whole row */
+}
+
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 170px;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  color: #111827;
+}
+
+/* outer pill */
+.filter-control {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 0.5rem 0.9rem;
+  border: 2px solid #111827;
+  min-width: 170px;
+}
+
+.filter-icon {
+  font-size: 0.9rem;
+}
+
+/* select styled like text */
+.filter-select {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  background: transparent;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.filter-select option {
+  color: #111827;
+}
+
+.filter-chevron {
+  font-size: 0.7rem;
+}
+
+/* Apply / Reset buttons */
+.filter-buttons {
+  display: flex;
+  gap: 0.7rem;
+}
+
+/* small tweak so these match nav buttons */
+.filter-buttons .btn {
+  padding-inline: 1.4rem;
+}
+
+/* ===== RECIPE SEARCH BAR ===== */
+
+.recipe-search {
+  margin-top: 1.5rem;
+}
+
+.recipe-search-inner {
+  width: 100%;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 2px solid #b388ff;        /* soft purple outline (tweak as needed) */
+  padding: 0.45rem 0.9rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.recipe-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+}
+
+.recipe-search-input::placeholder {
+  color: #4b5563;
+}
+
+/* search icon at right */
+.recipe-search-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 3px solid #111827;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: 0.7rem;
+}
+
+.recipe-search-icon:hover {
+  background: #f3f4f6;
+}
+
+/* ===== AUTH PAGES (Register) ===== */
+
+.auth-page {
+  min-height: calc(100vh - 160px); /* leave room for navbar/footer */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+.auth-card {
+  background: #f6ecdd;  /* slightly darker beige card */
+  border-radius: 12px;
+  padding: 2.4rem 3.1rem;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5d3bd;
+  width: 360px;
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.auth-label {
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.auth-input {
+  border: none;
+  outline: none;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.auth-input:focus {
+  box-shadow: 0 0 0 2px #d1c4e9;
+}
+
+.auth-error {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: #b91c1c;
+}
+
+.auth-success {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: #15803d;
+}
+
+/* Submit button (match nav brown button) */
+.auth-submit-btn {
+  margin-top: 0.8rem;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #5a4332;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.15);
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  opacity: 0.95;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.auth-secondary-link {
+  margin-top: 0.6rem;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: #4b5563;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.auth-secondary-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== HOME PAGE ===== */
+
+.home-page {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+/* center hero text */
+.home-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.home-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.home-subtitle {
+  font-size: 0.98rem;
+  color: #4b5563;
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Start here button (similar style to other buttons) */
+.home-start-button {
+  padding: 0.55rem 1.6rem;
+  border-radius: 999px;
+  border: none;
+  background: #5a4332;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.15);
+}
+
+.home-start-button:hover {
+  opacity: 0.95;
+}
+
+/* Filters area */
+.home-filters {
+  margin-top: 2rem;
+}
+
+/* ingredient card under filters */
+.home-ingredient-card {
+  margin-top: 2.2rem;
+  background: #f6ecdd;
+  border-radius: 12px;
+  padding: 1.8rem 2rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 0.7rem;
+  column-gap: 3rem;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.ingredient-item input[type='checkbox'] {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===== SEARCH PAGE ===== */
+
+.search-page {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.search-filters {
+  margin-bottom: 1.5rem;
+}
+
+/* Keep same max width as SmartFilter and center search bar */
+.search-bar-section {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Placeholder section for results */
+.search-results {
+  max-width: 960px;
+  margin: 2rem auto 0;
+}
+
+
+/* ===== SEARCH PAGE / RESULTS ===== */
+
+.search-page {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.search-filters {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar-section {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.search-results {
+  max-width: 1120px;
+  margin: 2rem auto 0;
+}
+
+.search-empty-text {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* cards layout */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1.5rem;
+}
+
+/* individual recipe card */
+.recipe-card {
+  background: #f6ecdd;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card-image-wrapper {
+  height: 220px;
+  overflow: hidden;
+}
+
+.recipe-card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-card-body {
+  padding: 0.9rem 1rem 1.2rem;
+}
+
+.recipe-card-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.recipe-card-calories {
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+/* ===== RECIPE PAGE ===== */
+
+.recipe-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem 3rem;
+}
+
+/* Title at the top (left aligned) */
+.recipe-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Main layout: image on the left, text on the right */
+.recipe-main {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* Big image on the left */
+.recipe-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+}
+
+/* Right side: meta + nutrition + ingredients + buttons */
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* calories + time row (optional) */
+.recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Container for Nutrition + Ingredients columns */
+.recipe-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+
+/* Section titles (Nutrition, Ingredients) */
+.recipe-info-grid h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+/* Nutrition + ingredients text blocks */
+.nutrition-block,
+.ingredient-block {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  font-size: 0.9rem;
+  white-space: pre-wrap; /* keep line breaks from your text */
+}
+
+/* Bottom buttons row */
+.recipe-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Black pill buttons (Cooking steps / Guided Cooking) */
+.btn-dark {
+  padding: 0.55rem 1.8rem;
+  border-radius: 999px;
+  border: none;
+  background: #000000;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.25);
+}
+
+.btn-dark:hover {
+  opacity: 0.95;
+}
+
+/* Responsive: stack image and text on small screens */
+@media (max-width: 768px) {
+  .recipe-page {
+    padding: 1.8rem 1.2rem 2.5rem;
+  }
+
+  .recipe-main {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .recipe-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .recipe-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===== COOKING STEPS PAGE ===== */
+
+.cooking-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+
+.cooking-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.cooking-steps-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.cooking-step h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+.cooking-step-list {
+  padding-left: 1.2rem;
+  list-style-type: decimal;
+}
+
+.cooking-step-list li {
+  margin-bottom: 0.4rem;
+}
+
+/* ===== GUIDED COOKING PAGE ===== */
+
+.guided-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+
+.guided-heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.guided-main {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr);
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.guided-step-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.guided-step-list {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.guided-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.guided-timer {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.guided-next-btn {
+  min-width: 180px;
+}
+
+/* reuse .btn-dark from earlier */
+
+
+
+/* ===== FAQ PAGE ===== */
+
+.faq-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 4rem;
+}
+
+.faq-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+/* Accordion container */
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Single FAQ item */
+.faq-item {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+/* Header row */
+.faq-header {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 1.3rem 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.faq-question {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  margin-right: 1rem;
+}
+
+/* Brown circular toggle button */
+.faq-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #5a4332;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18);
+}
+
+.faq-toggle-icon {
+  color: #ffffff;
+  font-size: 1.1rem;
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+/* When open, rotate arrow */
+.faq-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+/* Answer block */
+.faq-answer {
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 1.8rem 1.4rem;
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Slight highlight when open */
+.faq-item-open {
+  background: #fefaf5;
+}
+
+/* ===== PROFILE PAGE ===== */
+
+.profile-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+
+.profile-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.profile-main {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1.5fr) 260px;
+  column-gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* avatar */
+.profile-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 32px;
+  object-fit: cover;
+}
+
+/* middle form */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.profile-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.profile-input-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.profile-input-pill {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+.profile-input-pill input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+.profile-input-icon {
+  font-size: 1rem;
+}
+
+/* right preferences */
+.profile-preferences {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.profile-preference-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-preference-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.profile-preference-link {
+  font-size: 0.85rem;
+  color: #4b4bff;
+  text-decoration: underline;
+}
+
+/* select pill */
+.profile-select-pill {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0.55rem 0.9rem;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  border: 1px solid #111827;
+}
+
+.profile-select-icon {
+  margin-right: 0.5rem;
+}
+
+.profile-select-pill select {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.9rem;
+  background: transparent;
+}
+
+/* bottom buttons */
+.profile-actions {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.profile-btn-secondary {
+  background: #000000;
+  min-width: 180px;
+}
+
+.profile-btn-primary {
+  background: #000000;
+  min-width: 200px;
+}
+
+/* reuse .btn-dark from earlier for look */
+
+
+/* Contact page tweaks – reuse auth styles */
+
+/* ===== CONTACT FORM FIXES ===== */
+
+/* Make the form take full width inside the card */
+.contact-card form {
+  width: 100%;
+}
+
+/* Stack label above input, like Register page */
+.contact-card .auth-form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+/* Label styling */
+.contact-card .auth-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Inputs: full width pill */
+.contact-card .auth-input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+/* Textarea: same style but taller and not pill-shaped at the ends */
+.contact-card textarea.auth-input {
+  border-radius: 16px;
+  min-height: 130px;
+  resize: vertical;
+}
+
+/* Submit button: full width inside card */
+.contact-card .auth-submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.auth-card.contact-card {
+  max-width: 460px;        /* wider card */
+  width: 100%;
+  padding: 2rem 2.5rem 2.4rem;
+}
+
+.auth-page.contact-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;     /* vertical centering (optional) */
+  align-items: center !important; /* <-- ensure heading centers */
+  text-align: center;          /* <-- makes heading centered */
+  padding-top: 4rem;
+}
