@@ -25,7 +25,7 @@ export const Footer = () => {
 
       {/* Right: Footer nav */}
       <div className="footer-right">
-        <button className="footer-link">About Us</button>
+        <Link to="/about" className="footer-link" style={{ textDecoration: "none" }}>About us</Link>
         <Link to="/contact" className="footer-link" style={{ textDecoration: "none" }}>Contact</Link>
         <Link to="/faq" className="footer-link" style={{ textDecoration: "none" }}>Help</Link>
       </div>

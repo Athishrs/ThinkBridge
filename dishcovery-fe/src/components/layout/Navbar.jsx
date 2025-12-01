@@ -1,6 +1,6 @@
 // src/components/layout/Navbar.jsx
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../../assets/logo.svg';
 
@@ -8,6 +8,9 @@ import Logo from '../../assets/logo.svg';
 export const Navbar = () => {
     const { isAuthenticated, user, login, logout } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const navigate = useNavigate();
+
 
     const handleAvatarClick = () => {
         setMenuOpen((prev) => !prev);
@@ -88,20 +91,12 @@ export const Navbar = () => {
                                 <button
                                     className="user-menu-item"
                                     onClick={() => {
-                                        // later: navigate('/profile')
                                         setMenuOpen(false);
+
+                                        navigate('/profile')
                                     }}
                                 >
                                     Profile
-                                </button>
-                                <button
-                                    className="user-menu-item"
-                                    onClick={() => {
-                                        setMenuOpen(false);
-                                        // later: navigate('/settings')
-                                    }}
-                                >
-                                    Settings
                                 </button>
                                 <button
                                     className="user-menu-item user-menu-item-danger"
