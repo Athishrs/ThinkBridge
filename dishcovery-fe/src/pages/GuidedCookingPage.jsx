@@ -43,7 +43,8 @@ export const GuidedCookingPage = () => {
 
   const getStepDuration = (index) => {
     if (!recipe || !recipe.steps || !recipe.steps[index]) return 60;
-    return recipe.steps[index].durationSeconds || 60;
+    const raw = recipe.steps[index].durationSeconds;
+    return typeof raw === "number" && !Number.isNaN(raw) ? raw : 60;
   };
 
   // Timer logic

@@ -2,9 +2,9 @@
 export const API_ROUTES = {
   POSTS: '/posts',
   USERS: '/users',
-  REGISTER: '/auth/register',
-  LOGIN: '/auth/login',
-
-
+  AUTH: {
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login',
+  },
   // add more as needed
 };

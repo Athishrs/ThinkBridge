@@ -32,7 +32,7 @@ export const LoginPage = ({
           {/* Password */}
           <div className="auth-field">
             <label className="auth-label" htmlFor="password">
-              Create Password
+              Password
             </label>
             <input
               id="password"
