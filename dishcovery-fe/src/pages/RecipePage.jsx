@@ -1,8 +1,17 @@
 // src/pages/RecipePage.jsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { BackButton } from "../components/common/BackButton.jsx";
 
-export const RecipePage = ({ recipe, loading, error }) => {
+export const RecipePage = ({
+  recipe,
+  loading,
+  error,
+  isFavourite = false,
+  onToggleFavourite,
+  onMarkCooked,
+  isCooked = false,
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -18,9 +27,7 @@ export const RecipePage = ({ recipe, loading, error }) => {
     return (
       <div className="recipe-page">
         <p className="error-text">{error}</p>
-        <button className="btn-primary" onClick={() => navigate(-1)}>
-          Go Back
-        </button>
+        <BackButton onClick={() => navigate(-1)} iconOnly ariaLabel="Go back" />
       </div>
     );
   }
@@ -29,9 +36,11 @@ export const RecipePage = ({ recipe, loading, error }) => {
     return (
       <div className="recipe-page">
         <h2>Recipe not found</h2>
-        <button className="btn-primary" onClick={() => navigate("/search")}>
-          Back to Search
-        </button>
+        <BackButton
+          onClick={() => navigate("/search")}
+          iconOnly
+          ariaLabel="Back to search"
+        />
       </div>
     );
   }
@@ -57,13 +66,13 @@ export const RecipePage = ({ recipe, loading, error }) => {
   return (
     <div className="recipe-page">
       {/* Back button */}
-      <button
-        className="btn-link"
-        style={{ margin: "20px 0 10px" }}
-        onClick={() => navigate(-1)}
-      >
-        ← Back
-      </button>
+      <div className="page-back-row">
+        <BackButton
+          onClick={() => navigate(-1)}
+          iconOnly
+          ariaLabel="Back to previous page"
+        />
+      </div>
 
       {/* Main 3-column layout */}
       <section className="recipe-detail-layout">
@@ -72,11 +81,31 @@ export const RecipePage = ({ recipe, loading, error }) => {
           <div className="recipe-detail-left">
             <h1 className="recipe-title">{title}</h1>
 
-            <div className="recipe-meta">
-              {time && <span>{time}</span>}
-              {servings && <span>{servings} servings</span>}
-              {calories != null && <span>{calories} kcal</span>}
-              {cuisine && <span>{cuisine}</span>}
+            <div className="recipe-fav-row">
+              <div className="recipe-meta">
+                {time && <span>{time}</span>}
+                {servings && <span>{servings} servings</span>}
+                {calories != null && <span>{calories} kcal</span>}
+                {cuisine && <span>{cuisine}</span>}
+              </div>
+
+              <div className="recipe-action-stack">
+                <button
+                  type="button"
+                  className={`fav-toggle ${isFavourite ? "is-fav" : ""}`}
+                  onClick={onToggleFavourite}
+                >
+                  {isFavourite ? "★ Favourited" : "☆ Add to favourites"}
+                </button>
+                <button
+                  type="button"
+                  className="cook-toggle"
+                  onClick={onMarkCooked}
+                  disabled={isCooked}
+                >
+                  {isCooked ? "Cook again" : "Mark as cooked"}
+                </button>
+              </div>
             </div>
 
             {dietary && dietary.length > 0 && (
@@ -143,10 +172,10 @@ export const RecipePage = ({ recipe, loading, error }) => {
             Guided Cooking
           </button>
         </div>
+
       </section>
 
       
     </div>
   );
 };
-

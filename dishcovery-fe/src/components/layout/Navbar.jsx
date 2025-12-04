@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import Logo from '../../assets/logo.svg';
 
 
 export const Navbar = () => {
@@ -32,9 +31,40 @@ export const Navbar = () => {
         <header className="navbar">
             {/* Left: Logo */}
             <div className="navbar-left">
-                <div className="logo-pill">
-                    <img src={Logo} alt="Dishcovery Logo" className="nav-logo" />
-                </div>
+                <button
+                    className="logo-pill"
+                    type="button"
+                    onClick={() => navigate('/')}
+                    aria-label="Go to home"
+                >
+                    <svg
+                        className="nav-logo"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="7"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        />
+                        <line
+                            x1="15.5"
+                            y1="15.5"
+                            x2="21"
+                            y2="21"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                        />
+                    </svg>
+                    <span className="logo-text">Dishcovery</span>
+                </button>
             </div>
 
 

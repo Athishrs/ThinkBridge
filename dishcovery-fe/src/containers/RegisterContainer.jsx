@@ -1,9 +1,12 @@
 // src/containers/RegisterContainer.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RegisterPage } from '../pages/RegisterPage';
-import { registerUser } from '../api/authApi';
+import { useAuth } from '../context/AuthContext';
 
 export const RegisterContainer = () => {
+  const navigate = useNavigate();
+  const { signup, isAuthenticated } = useAuth();
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -13,6 +16,12 @@ export const RegisterContainer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -34,15 +43,24 @@ export const RegisterContainer = () => {
     setSuccessMessage('');
 
     try {
-      await registerUser({
+      const result = await signup({
         firstName: form.firstName,
         lastName: form.lastName,
         email: form.email,
         password: form.password,
       });
 
-      setSuccessMessage('Account created successfully!');
-      // later: navigate to login/dashboard
+      if (!result.success) {
+        setError(result.message || 'Unable to register. Please try again.');
+        return;
+      }
+
+      if (result.autoLoggedIn) {
+        navigate('/');
+      } else {
+        setSuccessMessage('Account created successfully! Please sign in.');
+        navigate('/login');
+      }
     } catch (err) {
       console.error(err);
       setError('Unable to register. Please try again.');

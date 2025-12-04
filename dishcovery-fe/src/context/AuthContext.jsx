@@ -1,49 +1,149 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { loginUser, registerUser } from "../api/authApi";
 
 const AuthContext = createContext(null);
+const STORAGE_KEY = "dishcovery_auth";
 
-const MOCK_USER = {
-  email: "student@uncc.edu",
-  password: "dishcovery123",
-  name: "Dishcovery Student"
+const parseAuthPayload = (response = {}, fallbackUser = null) => {
+  const payload = response.data || response;
+
+  const token =
+    payload?.token ||
+    payload?.accessToken ||
+    payload?.jwt ||
+    payload?.data?.token ||
+    null;
+
+  const user =
+    payload?.user ||
+    payload?.data?.user ||
+    payload?.profile ||
+    fallbackUser;
+
+  return { user, token };
+};
+
+const getErrorMessage = (err, defaultMessage) => {
+  if (!err) return defaultMessage;
+
+  if (err.body) {
+    try {
+      const parsed = JSON.parse(err.body);
+      return parsed?.message || parsed?.error || err.body || defaultMessage;
+    } catch {
+      return err.body || defaultMessage;
+    }
+  }
+
+  return err.message || defaultMessage;
 };
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
+  // hydrate from localStorage on load
   useEffect(() => {
-    const stored = localStorage.getItem("dishcovery_user");
-    if (stored) {
-      setUser(JSON.parse(stored));
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setUser(parsed.user || null);
+        setToken(parsed.token || null);
+      }
+    } catch (err) {
+      console.warn("Failed to read auth from storage", err);
     }
   }, []);
 
+  // persist auth state
   useEffect(() => {
-    if (user) {
-      localStorage.setItem("dishcovery_user", JSON.stringify(user));
+    const payload = user ? { user, token: token || null } : null;
+    if (payload) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } else {
-      localStorage.removeItem("dishcovery_user");
+      localStorage.removeItem(STORAGE_KEY);
     }
-  }, [user]);
+  }, [user, token]);
 
   const login = async (email, password) => {
-    if (email === MOCK_USER.email && password === MOCK_USER.password) {
-      setUser({ email: MOCK_USER.email, name: MOCK_USER.name });
-      return { success: true };
-    }
+    try {
+      const response = await loginUser({ email, password });
+      const fallbackUser = {
+        email,
+        name: response?.name || email.split("@")[0],
+      };
+      const { user: authUser, token: authToken } = parseAuthPayload(
+        response,
+        fallbackUser
+      );
 
-    return { success: false, message: "Invalid email or password." };
+      setUser(authUser);
+      setToken(authToken);
+
+      return { success: true };
+    } catch (err) {
+      console.error("Login failed", err);
+      const message = getErrorMessage(
+        err,
+        "Unable to sign in. Please check your credentials."
+      );
+      return { success: false, message };
+    }
+  };
+
+  const signup = async ({ firstName, lastName, email, password }) => {
+    try {
+      const response = await registerUser({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+
+      // Some APIs return user + token on signup. If so, auto-login.
+      const fallbackUser = {
+        email,
+        name: `${firstName || ""} ${lastName || ""}`.trim() || email,
+      };
+      const { user: authUser, token: authToken } = parseAuthPayload(
+        response,
+        fallbackUser
+      );
+
+      if (authToken) {
+        setUser(authUser);
+        setToken(authToken);
+      }
+
+      return { success: true, autoLoggedIn: !!authToken };
+    } catch (err) {
+      console.error("Signup failed", err);
+      const message = getErrorMessage(
+        err,
+        "Unable to create account right now."
+      );
+      return { success: false, message };
+    }
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
+  };
+
+  const updateUser = (updates = {}) => {
+    setUser((prev) => ({ ...(prev || {}), ...updates }));
   };
 
   const value = {
     user,
+    token,
     isAuthenticated: !!user,
     login,
-    logout
+    signup,
+    logout,
+    updateUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
