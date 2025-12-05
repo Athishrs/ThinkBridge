@@ -1,4 +1,5 @@
 # ThinkBridge
+ThinkBridge is a front-end project built using React and Vite, designed to support rapid development with modern tooling.
 
 To run the project -
 
