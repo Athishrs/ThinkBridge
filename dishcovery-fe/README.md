@@ -29,3 +29,15 @@ Project built using React and Vite, designed to support rapid development with m
 
 This project included dedicated quality assurance and design validation efforts to ensure consistency between the implemented interface and the original Figma designs. Testing focused on verifying user interactions, layout responsiveness, and overall usability across multiple sprints. Feedback from QA testing was used to identify UI inconsistencies and improve alignment with the intended interactive design.
  
+
+## Missing Features from Prototype
+
+Recipe Card
+- Share link
+    - Not implemented due to permission limitations.
+- Servings size changes tied to profile
+    - Not implemented because profile include this logic.
+
+Sign In
+- Forgot Password
+    - Not applicable—authentication system does not include full account recovery.
